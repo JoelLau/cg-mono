@@ -6,3 +6,10 @@ require:
   - rubocop-rspec
   - rubocop-rspec_rails
   - rubocop-thread_safety
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*_spec.rb'
+    - '**/config/routes.rb'
+    - 'spec/factories/*'
+    - 'lib/tasks/*.rake'
