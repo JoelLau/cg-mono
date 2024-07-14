@@ -44,8 +44,5 @@ module UrlShortenerBe
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
-
-    # disables CLRF protection
-    self.allow_forgery_protection = false
   end
 end
