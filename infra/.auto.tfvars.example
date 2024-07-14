@@ -1,0 +1,5 @@
+aws_access_key = "xxx"
+aws_secret_key = "xxx"
+usdb_username  = "db_user123"
+usdb_password  = "p@ssw0rd"
+joels_tmp_ip   = "123.123.123.123"
