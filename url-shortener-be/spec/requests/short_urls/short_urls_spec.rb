@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-
 RSpec.describe 'ShortUrls', type: :request do
   describe 'POST /' do
     subject(:request) { post '/short_urls', params: }

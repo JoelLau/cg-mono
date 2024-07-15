@@ -16,6 +16,14 @@ class ShortUrlsController < ApplicationController
     }, status: :created
   end
 
+  def redirect
+    @short_url = ShortUrl.find(params[:short_url])
+
+    return render json: { error: 'Short URL not found' }, status: :not_found unless @short_url
+
+    redirect_to @short_url.target_url, allow_other_host: true
+  end
+
   private
 
   def target_url_param
