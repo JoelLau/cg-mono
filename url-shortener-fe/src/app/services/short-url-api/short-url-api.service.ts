@@ -11,9 +11,23 @@ export class ShortUrlApiService {
 
   constructor(private http: HttpClient) {}
 
-  createShortUrl(originalUrl: string) {
+  createShortUrl(targetUrl: string) {
+    const params: CreateShortUrlRequest = {
+      target_url: targetUrl,
+    };
+
     return this.http
-      .post(`${this.BASE_URL}/short_urls`, { original_url: originalUrl })
+      .post<CreateShortUrlResponse>(`${this.BASE_URL}/short_urls`, params)
       .pipe(retry(1));
   }
 }
+
+export interface CreateShortUrlRequest {
+  target_url: string;
+}
+
+export type CreateShortUrlResponse =
+  | CreateShortUrlResponseSuccess
+  | CreateShortUrlResponseError;
+export type CreateShortUrlResponseSuccess = unknown;
+export type CreateShortUrlResponseError = unknown;

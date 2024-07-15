@@ -54,10 +54,6 @@ export class HomePageComponent {
   }
 }
 
-export interface CreateShortUrlRequest {
-  original_url: string;
-}
-
 export function NewCreateShortUrlForm() {
   return new FormGroup({
     original_url: new FormControl<string | null>(null, [Validators.required]),
