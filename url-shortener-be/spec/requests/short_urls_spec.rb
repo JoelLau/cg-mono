@@ -9,7 +9,7 @@ RSpec.describe 'ShortUrls', type: :request do
     let(:params) { {} }
 
     context 'when given valid URL' do
-      let(:params) { { original_url: 'https://www.coingecko.com' } }
+      let(:params) { { target_url: 'https://www.coingecko.com' } }
 
       it 'returns 201 CREATED' do
         request
@@ -23,7 +23,7 @@ RSpec.describe 'ShortUrls', type: :request do
     context 'when given an invalid URL' do
       let(:params) { nil }
 
-      it 'returns 400 CREATED' do
+      it 'returns 400 BAD REQUEST' do
         request
 
         expect(response).to have_http_status(:bad_request)

@@ -3,25 +3,23 @@
 # :nodoc:
 class ShortUrlsController < ApplicationController
   def create
-    if target_url_param.nil? || target_url_param.blank?
-      return render_errors(['request body must contain field: target_url'],
-                           :bad_request)
-    end
+    return render_errors(['request body must contain field: target_url'], :bad_request) unless target_url_param
 
     short_url = ShortUrl.new({ target_url: target_url_param })
     return render_errors(short_url.errors.full_messages, :unprocessable_entity) unless short_url.save
 
-    render json: { data: short_url }, status: :created
-    # rescue NotNullValidation
-    #   render json: { errors: ['target_url cannot be null'] }, status: :bad_request
+    render json: {
+      data: {
+        target_url: short_url.id,
+        short_url: short_url.target_url
+      }
+    }, status: :created
   end
 
   private
 
   def target_url_param
-    return nil if params.nil? || params.blank?
-
-    params[:target_url]
+    params.require(:target_url)
   end
 
   def render_errors(errors, status)
