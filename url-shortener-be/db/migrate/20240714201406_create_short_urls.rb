@@ -4,7 +4,7 @@
 class CreateShortUrls < ActiveRecord::Migration[7.1]
   def change
     create_table :short_urls do |t|
-      t.string :original_url, null: false
+      t.string :target_url, null: false
 
       t.timestamps
     end
