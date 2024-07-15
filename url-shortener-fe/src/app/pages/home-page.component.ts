@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ShortUrlApiService } from '../services/short-url-api/short-url-api.service';
 import { FormGroup, Validators } from '@angular/forms';
+import { ShortUrlApiService } from '../services/short-url-api/short-url-api.service';
 import { StackLayoutComponent } from '../layouts/stack-layout.component';
 
 @Component({
@@ -12,32 +12,34 @@ import { StackLayoutComponent } from '../layouts/stack-layout.component';
   styleUrl: './home-page.component.scss',
 })
 export class HomePageComponent {
-  formGroup = NewCreateShortUrlForm()
+  formGroup = NewCreateShortUrlForm();
 
-  constructor(private shortUrlsApi: ShortUrlApiService) { }
+  constructor(private shortUrlsApi: ShortUrlApiService) {}
 
   onSubmit(event: Event): void {
-    event.preventDefault()
+    event.preventDefault();
 
     if (this.formGroup.valid && this.formGroup.value.original_url) {
-      this.shortUrlsApi.createShortUrl(this.formGroup.value.original_url)
-      .subscribe({
-        error(err) { console.error(err) },
-        next(response) { console.log(response) }
-      })
+      this.shortUrlsApi
+        .createShortUrl(this.formGroup.value.original_url)
+        .subscribe({
+          error(err) {
+            console.error(err);
+          },
+          next(response) {
+            console.log(response);
+          },
+        });
     }
   }
 }
 
-
-
 export interface CreateShortUrlRequest {
-  original_url: string
+  original_url: string;
 }
-
 
 export function NewCreateShortUrlForm() {
   return new FormGroup({
-    original_url: new FormGroup('', [Validators.required])
-  })
+    original_url: new FormGroup('', [Validators.required]),
+  });
 }
