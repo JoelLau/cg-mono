@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 export class ShortUrlApiService {
   readonly BASE_URL = environment.api_base_path;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   createShortUrl(targetUrl: string) {
     const params: CreateShortUrlRequest = {
@@ -29,5 +29,14 @@ export interface CreateShortUrlRequest {
 export type CreateShortUrlResponse =
   | CreateShortUrlResponseSuccess
   | CreateShortUrlResponseError;
-export type CreateShortUrlResponseSuccess = unknown;
-export type CreateShortUrlResponseError = unknown;
+
+export interface CreateShortUrlResponseSuccess {
+  data: {
+    target_url: string;
+    short_url: string;
+  };
+}
+
+export interface CreateShortUrlResponseError {
+  errors: string[];
+}

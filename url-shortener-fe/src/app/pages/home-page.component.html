@@ -5,12 +5,17 @@
       <p>Create URLs with the click of a button</p>
     </div>
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit($event)">
-      <input
-        type="text"
-        formControlName="original_url"
-        placeholder="https://www.coingecko.com"
-      />
+      <input type="text" formControlName="original_url" placeholder="https://www.coingecko.com" />
       <button type="submit">Shorten It!</button>
     </form>
+    <ng-container *ngIf="errors">
+      <p *ngFor="let error in errors;; trackBy: trackError">{{ error }}</p>
+    </ng-container>
+    <ng-container *ngIf="shortUrl && targetUrl">
+      <p>
+        <a [href]="targetUrl">{{ targetUrl }}</a> has been shortened to <a [href]="shortUrl" target="_blank">{{ shortUrl
+          }}</a>
+      </p>
+    </ng-container>
   </section>
 </app-stack-layout>
