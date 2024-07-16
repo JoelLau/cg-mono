@@ -10,8 +10,8 @@ class ShortUrlsController < ApplicationController
 
     render json: {
       data: {
-        target_url: short_url.id,
-        short_url: short_url.target_url
+        target_url: short_url.target_url,
+        short_url: short_url.id
       }
     }, status: :created
   end
