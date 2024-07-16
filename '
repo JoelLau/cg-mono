@@ -16,13 +16,11 @@ provider "aws" {
 variable "db_user" {
   type        = string
   description = "database username for connecting to postgres rds"
-  sensitive   = true
 }
 
 variable "db_pass" {
   type        = string
   description = "database password for connecting to postgres rds"
-  sensitive   = true
 }
 
 # VPC
@@ -102,15 +100,16 @@ resource "aws_instance" "rails" {
 }
 
 # RDS Instance
-resource "aws_db_instance" "usbe-db" {
-  username               = var.db_user
-  password               = var.db_pass
+resource "aws_db_instance" "default" {
   allocated_storage      = 10
   engine                 = "postgres"
   engine_version         = "16"
   instance_class         = "db.t3.micro"
   db_name                = "urlshortener_prod"
   identifier_prefix      = "usbe-pg16"
+  username               = var.db_user
+  password               = var.db_pass
+  parameter_group_name   = aws_db_parameter_group.custom-postgres16.name
   skip_final_snapshot    = true
   apply_immediately      = true
   multi_az               = false
@@ -125,21 +124,20 @@ resource "aws_db_instance" "usbe-db" {
 resource "aws_db_subnet_group" "main" {
   subnet_ids = [aws_subnet.main.id, aws_subnet.main2.id]
 }
-
 output "rds_hostname" {
   description = "RDS instance hostname"
-  value       = aws_db_instance.usbe-db.address
+  value       = aws_db_instance.default.address
   sensitive   = true
 }
 
 output "rds_port" {
   description = "RDS instance port"
-  value       = aws_db_instance.usbe-db.port
+  value       = aws_db_instance.default.port
   sensitive   = true
 }
 
 output "rds_username" {
   description = "RDS instance root username"
-  value       = aws_db_instance.usbe-db.username
+  value       = aws_db_instance.default.username
   sensitive   = true
 }
