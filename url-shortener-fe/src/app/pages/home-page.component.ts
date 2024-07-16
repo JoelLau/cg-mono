@@ -34,7 +34,7 @@ export class HomePageComponent {
   targetUrl: string | null = null;
   shortUrl: string | null = null;
 
-  constructor(private shortUrlsApi: ShortUrlApiService) { }
+  constructor(private shortUrlsApi: ShortUrlApiService) {}
 
   onSubmit(event: Event): void {
     event.preventDefault();
