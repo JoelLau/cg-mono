@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :visits
   resources :short_urls
   get '/:short_url', to: 'short_urls#redirect', as: :redirect
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

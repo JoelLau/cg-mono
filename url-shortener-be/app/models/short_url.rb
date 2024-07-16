@@ -10,4 +10,5 @@
 #  updated_at :datetime         not null
 #
 class ShortUrl < ApplicationRecord
+  has_many :visits, counter_cache: true, dependent: nil
 end
