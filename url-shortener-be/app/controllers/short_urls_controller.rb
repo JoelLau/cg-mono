@@ -21,9 +21,8 @@ class ShortUrlsController < ApplicationController
 
     return render json: { error: 'Short URL not found' }, status: :not_found unless @short_url
 
-    # TODO: move creation somewhere more appropriate
     # TODO: add geolocation info
-    visit = Visit.new({ short_url_id: @short_url.id })
+    visit = @short_url.visits.new({ latitude: nil, longitude: nil })
     visit.save
 
     redirect_to @short_url.target_url, allow_other_host: true
